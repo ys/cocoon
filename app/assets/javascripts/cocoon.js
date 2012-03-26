@@ -9,6 +9,10 @@
     node.parent().parent().trigger('removal-callback');
   }
 
+  function trigger_after_removal_callback(node) {
+    node.parent().parent().trigger('after-removal-callback');
+  }
+
   $('.add_fields').live('click', function(e) {
     e.preventDefault();
     var $this                 = $(this),
@@ -55,6 +59,7 @@
     trigger_removal_callback($this);
     e.preventDefault();
     $this.closest(".nested-fields").remove();
+    trigger_after_removal_callback($this);
   });
 
   $('.remove_fields.existing').live('click', function(e) {
@@ -63,6 +68,7 @@
     e.preventDefault();
     $this.prev("input[type=hidden]").val("1");
     $this.closest(".nested-fields").hide();
+    trigger_after_removal_callback($this);
   });
 
 })(jQuery);
